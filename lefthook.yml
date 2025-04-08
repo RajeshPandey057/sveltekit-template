@@ -1,0 +1,38 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://lefthook.dev/configuration/
+#
+# pre-push:
+#   jobs:
+#     - name: packages audit
+#       tags:
+#         - frontend
+#         - security
+#       run: yarn audit
+#
+#     - name: gems audit
+#       tags:
+#         - backend
+#         - security
+#       run: bundle audit
+#
+pre-commit:
+  parallel: true
+  jobs:
+    - name: lint-static
+      glob: '*.{json,css,md}'
+      run: pnpm prettier --write {staged_files}
+      stage_fixed: true
+
+    - name: lint-code
+      glob: '*.{mjs,cjs,js,ts,svelte}'
+      run: |
+        pnpm prettier --write {staged_files}
+        pnpm eslint --fix --cache {staged_files}
+      stage_fixed: true
+
+commit-msg:
+  jobs:
+    - name: lint-commit
+      run: pnpm dlx commitlint --edit {1}

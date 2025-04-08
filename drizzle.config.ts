@@ -1,12 +1,16 @@
-import type { Config } from 'drizzle-kit';
+import { defineConfig } from 'drizzle-kit';
+import { loadEnv } from 'vite';
 
-export default {
+const env = loadEnv('', process.cwd());
+
+export default defineConfig({
 	strict: true,
 	verbose: true,
-	schema: './src/lib/db/schema.ts',
-	dialect: 'postgresql',
 	out: './.drizzle',
+	casing: 'snake_case',
+	dialect: 'postgresql',
+	schema: './src/lib/server/db/schema.ts',
 	dbCredentials: {
-		url: import.meta.env.VITE_DB_CONN
+		url: env.VITE_LOCAL_DB // env.VITE_CLOUD_DB//env.VITE_PROD_DB
 	}
-} satisfies Config;
+});

@@ -1,8 +1,11 @@
+test-results
 node_modules
 
 # Output
 .output
 .vercel
+.netlify
+.wrangler
 /dev-dist
 /.svelte-kit
 /build
@@ -22,6 +25,10 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Paraglide
+src/lib/paraglide
+
 /prisma/dev.db
 /docker-data
 settings.json
@@ -30,3 +37,6 @@ auth.json
 coverage
 scripts/exportDB.ts
 /coverage*
+
+# ESLint
+.eslintcache
